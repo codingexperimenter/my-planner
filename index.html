@@ -116,6 +116,10 @@ body{background:radial-gradient(900px 420px at 85% -10%,color-mix(in srgb,var(--
 .cm{display:flex;gap:8px;align-items:center}
 .grade{font:800 46px/1 'Bricolage Grotesque';letter-spacing:-.03em;color:var(--c)}
 @media(max-width:760px){.cd{min-height:60px;padding:4px}.ce{font-size:0;height:6px;padding:0}.cd em{display:none}.cal{gap:3px}.nav button{padding:6px 3px;font-size:10px}.nf{grid-template-columns:1fr!important}}
+input[type=color]{width:64px;height:38px;padding:3px;cursor:pointer}
+input.cp{width:30px;height:30px;padding:0;border:0;border-radius:50%;margin:0 6px 0 auto;background:none}
+.cp::-webkit-color-swatch-wrapper{padding:0}.cp::-webkit-color-swatch{border:0;border-radius:50%}
+@media(max-width:760px){.nav{overflow-x:auto}.nav button{flex:none}}
 </style>
 </head>
 <body>
@@ -129,12 +133,13 @@ body{background:radial-gradient(900px 420px at 85% -10%,color-mix(in srgb,var(--
  <div class="spacer"></div>
  <div class="mini"><p>Studied this week</p><b id="wk">0h</b></div>
  <button class="themebtn" data-a="theme">Toggle light / dark</button>
+ <button class="themebtn" data-a="bk">Backup and restore</button>
 </aside>
 <main id="main"></main>
 </div>
 <dialog id="dlg"></dialog>
 <script>
-const K='studycenter.v1',COL=['#5b5bef','#e5484d','#18a77f','#e08a00','#d6409f','#0ea5e9','#8b5cf6','#64748b'],TYPES=['Assignment','Test','Quiz','Homework'];
+const K='studycenter.v1',COL=['#5b5bef','#3b82f6','#0ea5e9','#06b6d4','#14b8a6','#18a77f','#84cc16','#eab308','#e08a00','#f97316','#e5484d','#f43f5e','#d6409f','#a855f7','#8b5cf6','#6366f1','#78716c','#64748b','#0f766e','#7c2d12'],TYPES=['Assignment','Test','Quiz','Homework'];
 const $=s=>document.querySelector(s),uid=()=>Math.random().toString(36).slice(2,9);
 const iso=d=>{const x=new Date(d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')};
 const add=n=>{const d=new Date();d.setDate(d.getDate()+n);return iso(d)};
@@ -178,9 +183,9 @@ function study(){
  <div class="grid two"><div style="display:grid;gap:16px;align-content:start"><div class="card timer"><div class="clock" id="clock">00:00:00</div>${S.classes.length?`<select id="tc" aria-label="Class" ${t?'disabled':''}>${opts}</select><input id="tt" placeholder="What are you studying?" value="${esc(t?t.topic:'')}" ${t?'disabled':''}>${t?'<button class="btn red" data-a="stop">Stop and save</button>':'<button class="btn" data-a="start">Start studying</button>'}`:'<p>Add a class to start tracking.</p>'}</div>
  <div class="card"><h3>Log a past session</h3><select id="mc">${S.classes.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select><div class="f2" style="margin-top:10px"><input id="mt" placeholder="Topic"><input id="mm" type="number" min="1" placeholder="Minutes"></div><div class="acts"><button class="btn ghost" data-a="log">Add session</button></div></div></div>
  <div class="card"><h3>Recent sessions</h3>${ss.length?ss.map(s=>{const c=cl(s.cls);return`<div class="row"><div class="t"><b>${esc(s.topic||'General study')}</b><div class="meta"><span class="pill"><i class="dot" style="--c:${c.color}"></i>${esc(c.name)}</span><span>${dd(s.date)===0?'Today':ds(s.date)}</span></div></div><b>${fm(s.mins)}</b><button class="x" aria-label="Delete" data-a="ds" data-id="${s.id}">&times;</button></div>`}).join(''):'<div class="empty">No sessions yet.</div>'}</div></div>`}
-function classes(){return`<div class="head"><div><h1>Classes</h1><p>Everything for each course at a glance.</p></div><button class="btn" data-a="nc">+ Add class</button></div>
+function classes(){return`<div class="head"><div><h1>Classes</h1><p>Everything for each course at a glance.</p></div><div class="cm"><button class="btn ghost" data-a="bk">Backup</button><button class="btn" data-a="nc">+ Add class</button></div></div>
  <div class="cls">${S.classes.map(c=>{const o=S.tasks.filter(t=>t.cls===c.id&&!t.done),nx=o.sort((a,b)=>a.due.localeCompare(b.due))[0],m=S.sessions.filter(s=>s.cls===c.id).reduce((a,s)=>a+s.mins,0);
-  return`<div class="card cc" style="--c:${c.color}"><div style="display:flex;justify-content:space-between"><h3>${esc(c.name)}</h3><button class="x" aria-label="Delete class" data-a="dc" data-id="${c.id}">&times;</button></div><div class="sub"><span>${o.length} open task${o.length===1?'':'s'}</span><span>${fm(m)||'0m'} studied</span></div>${gradePill(c.id)}<div class="meta" style="margin-top:12px">${nx?`Next: ${esc(nx.title)} ${dueL(nx)}`:'Nothing due'}</div><div class="meta" style="margin-top:8px">${TYPES.map(y=>{const n=o.filter(t=>t.type===y).length;return n?`<span class="tag ${y}">${n} ${y}</span>`:''}).join('')}</div></div>`}).join('')||'<div class="card empty" style="grid-column:1/-1">Add your first class to begin.</div>'}</div>`}
+  return`<div class="card cc" style="--c:${c.color}"><div style="display:flex;justify-content:space-between"><h3>${esc(c.name)}</h3><input type="color" class="cp" value="${c.color}" data-cc="${c.id}" aria-label="Change class color"><button class="x" aria-label="Delete class" data-a="dc" data-id="${c.id}">&times;</button></div><div class="sub"><span>${o.length} open task${o.length===1?'':'s'}</span><span>${fm(m)||'0m'} studied</span></div>${gradePill(c.id)}<div class="meta" style="margin-top:12px">${nx?`Next: ${esc(nx.title)} ${dueL(nx)}`:'Nothing due'}</div><div class="meta" style="margin-top:8px">${TYPES.map(y=>{const n=o.filter(t=>t.type===y).length;return n?`<span class="tag ${y}">${n} ${y}</span>`:''}).join('')}</div></div>`}).join('')||'<div class="card empty" style="grid-column:1/-1">Add your first class to begin.</div>'}</div>`}
 const LG=p=>p>=93?'A':p>=90?'A-':p>=87?'B+':p>=83?'B':p>=80?'B-':p>=77?'C+':p>=73?'C':p>=70?'C-':p>=60?'D':'F';
 const gc=p=>p>=90?'#18a77f':p>=80?'#5b5bef':p>=70?'#e08a00':'#e5484d';
 function avg(id){const g=S.grades.filter(x=>x.cls===id);if(!g.length)return null;const p=g.reduce((a,x)=>a+x.e,0)/g.reduce((a,x)=>a+x.p,0)*100;return{p,l:LG(p)}}
@@ -203,13 +208,20 @@ return`<div class="head"><div><h1>Notes</h1><p>Reminders like asking a teacher a
 <div class="card" style="margin-top:16px">${l.length?l.map(noteRow).join(''):'<div class="empty">No notes yet. Write down anything you do not want to forget.</div>'}</div>`}
 function dlgGrade(){const d=$('#dlg');d.innerHTML=`<h2>New grade</h2><label>Class</label><select id="g1">${S.classes.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select><label>Name</label><input id="g2" placeholder="e.g. Unit 3 test"><label>Type</label><select id="g5">${TYPES.map(t=>`<option>${t}</option>`).join('')}</select><div class="f2"><div><label>Score</label><input id="g3" type="number" step="any" min="0"></div><div><label>Out of</label><input id="g4" type="number" step="any" min="1" value="100"></div></div><div class="acts"><button class="btn ghost" data-a="cd">Cancel</button><button class="btn" data-a="sg">Save grade</button></div>`;d.showModal();$('#g2').focus()}
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='nq')document.querySelector('[data-a=an]').click()});
+const bdata=()=>JSON.stringify({app:'study-center',v:1,exported:new Date().toISOString(),data:S},null,1);
+function bmsg(t,bad){const m=$('#bm');if(m){m.textContent=t;m.style.color=bad?'var(--danger)':'var(--ok)'}}
+function doImport(txt){try{let j=JSON.parse(txt);j=j.data||j;if(!Array.isArray(j.classes)||!Array.isArray(j.tasks)||!Array.isArray(j.sessions))throw 0;S={classes:j.classes,tasks:j.tasks,sessions:j.sessions,grades:j.grades||[],notes:j.notes||[],timer:null};save();render();bmsg('Restored '+S.classes.length+' classes and '+S.tasks.length+' tasks.')}catch(e){bmsg('That does not look like a Study Center backup.',1)}}
+function dlgBackup(){const d=$('#dlg');d.innerHTML=`<h2>Backup and restore</h2><p style="color:var(--mute);margin:6px 0 0">Your data lives in this browser only. Save a backup to keep it safe or move it to another device.</p><div class="acts" style="justify-content:flex-start;flex-wrap:wrap"><button class="btn" data-a="bx">Download backup</button><button class="btn ghost" data-a="bc">Copy to clipboard</button></div><label>Restore from a file</label><input type="file" id="bf" accept=".json,application/json"><label>Or paste backup text</label><textarea id="bt" rows="3" placeholder="Paste backup here"></textarea><p id="bm" style="color:var(--mute);font-size:13px;margin:8px 0 0">Restoring replaces everything currently in this app.</p><div class="acts"><button class="btn ghost" data-a="cd">Close</button><button class="btn" data-a="bi">Restore</button></div>`;d.showModal()}
+document.addEventListener('change',e=>{if(e.target.id==='bf'&&e.target.files[0]){const r=new FileReader();r.onload=()=>doImport(r.result);r.readAsText(e.target.files[0])}});
+document.addEventListener('input',e=>{if(e.target.id==='d5')document.querySelectorAll('.sw button').forEach(x=>x.classList.toggle('on',x.dataset.id===e.target.value))});
+document.addEventListener('change',e=>{const id=e.target.dataset&&e.target.dataset.cc;if(id){const c=S.classes.find(c=>c.id===id);if(c){c.color=e.target.value;save();render()}}});
 function render(){
  $('#nav').innerHTML=NAV.map(([k,n])=>`<button class="${view===k?'on':''}" data-a="nav" data-id="${k}"><svg viewBox="0 0 24 24">${ico[k]}</svg>${n}</button>`).join('');
  $('#main').innerHTML={dash,tasks,cal,grades,study,notes,classes}[view]();$('#wk').textContent=fm(weekMins())||'0m';tick()}
 function tick(){const c=$('#clock');if(!c)return;const s=S.timer?Math.floor((Date.now()-S.timer.start)/1000):0;c.textContent=[s/3600,s/60%60,s%60].map(n=>String(Math.floor(n)).padStart(2,'0')).join(':')}
 setInterval(tick,1000);
 function dlgTask(dt){const d=$('#dlg');d.innerHTML=`<h2>New task</h2><label>Title</label><input id="d1" placeholder="e.g. Chapter 5 quiz"><div class="f2"><div><label>Class</label><select id="d2">${S.classes.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select></div><div><label>Type</label><select id="d3">${TYPES.map(t=>`<option>${t}</option>`).join('')}</select></div></div><label>Due date</label><input id="d4" type="date" value="${dt||add(1)}"><div class="acts"><button class="btn ghost" data-a="cd">Cancel</button><button class="btn" data-a="st">Save task</button></div>`;d.showModal();$('#d1').focus()}
-function dlgClass(){const d=$('#dlg');d.innerHTML=`<h2>New class</h2><label>Name</label><input id="d1" placeholder="e.g. Chemistry"><label>Color</label><div class="sw">${COL.map(c=>`<button style="--c:${c}" class="${c===swatch?'on':''}" data-a="sw" data-id="${c}" aria-label="Color ${c}"></button>`).join('')}</div><div class="acts"><button class="btn ghost" data-a="cd">Cancel</button><button class="btn" data-a="sc">Save class</button></div>`;d.showModal();$('#d1').focus()}
+function dlgClass(){const d=$('#dlg');d.innerHTML=`<h2>New class</h2><label>Name</label><input id="d1" placeholder="e.g. Chemistry"><label>Color</label><div class="sw">${COL.map(c=>`<button style="--c:${c}" class="${c===swatch?'on':''}" data-a="sw" data-id="${c}" aria-label="Color ${c}"></button>`).join('')}</div><label>Or pick any color</label><input type="color" id="d5" value="${swatch}" aria-label="Custom color"><div class="acts"><button class="btn ghost" data-a="cd">Cancel</button><button class="btn" data-a="sc">Save class</button></div>`;d.showModal();$('#d1').focus()}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,id=b.dataset.id;
  if(a==='nav'){view=id}
  else if(a==='theme'){const r=document.documentElement,dk=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=dk?'light':'dark';return}
@@ -221,6 +233,10 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b
  else if(a==='ft'){fType=id}else if(a==='sd'){showDone=!showDone}
  else if(a==='nt'){if(!S.classes.length){view='classes';dlgClass()}else{dlgTask();return}}
  else if(a==='nc'){dlgClass();return}
+ else if(a==='bk'){dlgBackup();return}
+ else if(a==='bx'){try{const l=document.createElement('a');l.href=URL.createObjectURL(new Blob([bdata()],{type:'application/json'}));l.download='study-center-backup-'+iso(new Date())+'.json';document.body.appendChild(l);l.click();l.remove();bmsg('Backup downloaded.')}catch(x){bmsg('Download blocked here. Use Copy instead.',1)}return}
+ else if(a==='bc'){navigator.clipboard.writeText(bdata()).then(()=>bmsg('Copied. Paste it into a text file to keep it.'),()=>{$('#bt').value=bdata();$('#bt').select();bmsg('Copy blocked. Copy the text below by hand.',1)});return}
+ else if(a==='bi'){const t=$('#bt').value.trim();if(!t){bmsg('Paste a backup or choose a file first.',1);return}doImport(t);return}
  else if(a==='cs'){calSel=id}
  else if(a==='cp'||a==='cn'){calM=new Date(calM.getFullYear(),calM.getMonth()+(a==='cn'?1:-1),1)}
  else if(a==='ct'){calM=new Date();calM.setDate(1);calSel=iso(new Date())}
@@ -232,9 +248,9 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b
  else if(a==='tn'){const n=S.notes.find(n=>n.id===id);n.done=!n.done}
  else if(a==='dn'){S.notes=S.notes.filter(n=>n.id!==id)}
  else if(a==='cd'){$('#dlg').close();return}
- else if(a==='sw'){swatch=id;document.querySelectorAll('.sw button').forEach(x=>x.classList.toggle('on',x.dataset.id===id));return}
+ else if(a==='sw'){swatch=id;$('#d5').value=id;document.querySelectorAll('.sw button').forEach(x=>x.classList.toggle('on',x.dataset.id===id));return}
  else if(a==='st'){const t=$('#d1').value.trim();if(!t){$('#d1').focus();return}S.tasks.push({id:uid(),title:t,cls:$('#d2').value,type:$('#d3').value,due:$('#d4').value||add(1),done:false});$('#dlg').close()}
- else if(a==='sc'){const n=$('#d1').value.trim();if(!n){$('#d1').focus();return}S.classes.push({id:uid(),name:n,color:swatch});$('#dlg').close()}
+ else if(a==='sc'){const n=$('#d1').value.trim();if(!n){$('#d1').focus();return}S.classes.push({id:uid(),name:n,color:$('#d5').value||swatch});$('#dlg').close()}
  else if(a==='start'){S.timer={start:Date.now(),cls:$('#tc').value,topic:$('#tt').value.trim()}}
  else if(a==='stop'){const m=Math.max(1,Math.round((Date.now()-S.timer.start)/60000));S.sessions.push({id:uid(),cls:S.timer.cls,topic:S.timer.topic,mins:m,date:iso(new Date())});S.timer=null}
  else if(a==='log'){const m=parseInt($('#mm').value);if(!m||m<1){$('#mm').focus();return}S.sessions.push({id:uid(),cls:$('#mc').value,topic:$('#mt').value.trim(),mins:m,date:iso(new Date())})}
