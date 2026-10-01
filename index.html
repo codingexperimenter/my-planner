@@ -5,15 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Study Center</title>
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#5b5bef">
+<meta name="theme-color" content="#0f1122">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%235b5bef'/%3E%3Cstop offset='1' stop-color='%238a5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='48' height='48' rx='14' fill='url%28%23g%29'/%3E%3Cpath d='M10 17l14-6 14 6-14 6z' fill='white'/%3E%3Cpath d='M16 22v7c0 2.5 3.6 5 8 5s8-2.5 8-5v-7l-8 3.4z' fill='white' opacity='.9'/%3E%3Cpath d='M38 18v10' stroke='%232dd4a7' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='38' cy='30' r='2.4' fill='%232dd4a7'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%235b5bef'/%3E%3Cstop offset='1' stop-color='%238a5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='48' height='48' rx='14' fill='url%28%23g%29'/%3E%3Cpath d='M10 17l14-6 14 6-14 6z' fill='white'/%3E%3Cpath d='M16 22v7c0 2.5 3.6 5 8 5s8-2.5 8-5v-7l-8 3.4z' fill='white' opacity='.9'/%3E%3Cpath d='M38 18v10' stroke='%232dd4a7' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='38' cy='30' r='2.4' fill='%232dd4a7'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap">
 <style>
-:root{--bg:#f4f5fb;--panel:#fff;--ink:#16193a;--mute:#6b6f8f;--line:#e4e6f2;--acc:#5b5bef;--acc2:#2dd4a7;--accsoft:#ececff;--danger:#e5484d;--warn:#f5a524;--ok:#18a77f;--sh:0 1px 2px rgba(22,25,58,.06),0 8px 24px rgba(22,25,58,.05);
+:root{color-scheme:dark;--bg:#0f1122;--panel:#181b34;--ink:#eceefc;--mute:#9a9ec4;--line:#272b4d;--acc:#5b5bef;--acc2:#2dd4a7;--accsoft:#25285a;--danger:#e5484d;--warn:#f5a524;--ok:#18a77f;--sh:0 1px 2px rgba(0,0,0,.3);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1122;--panel:#181b34;--ink:#eceefc;--mute:#9a9ec4;--line:#272b4d;--accsoft:#25285a;--sh:0 1px 2px rgba(0,0,0,.3)}}
-:root[data-theme="dark"]{--bg:#0f1122;--panel:#181b34;--ink:#eceefc;--mute:#9a9ec4;--line:#272b4d;--accsoft:#25285a;--sh:0 1px 2px rgba(0,0,0,.3)}
 *{box-sizing:border-box}html,body{height:100%;margin:0}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 'DM Sans',system-ui,sans-serif}
 h1,h2,h3{font-family:'Bricolage Grotesque','DM Sans',sans-serif;margin:0;letter-spacing:-.02em}
@@ -90,7 +88,7 @@ label{display:block;font-size:13px;font-weight:700;margin:12px 0 5px}
 dialog{border:1px solid var(--line);border-radius:20px;background:var(--panel);color:var(--ink);padding:22px;width:min(440px,92vw);box-shadow:0 30px 80px rgba(0,0,0,.35)}
 dialog::backdrop{background:rgba(10,12,30,.55)}
 .acts{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
-.sw{display:flex;gap:8px;flex-wrap:wrap}.sw button{width:28px;height:28px;border-radius:50%;border:3px solid transparent;background:var(--c)}.sw button.on{border-color:var(--ink)}
+.sw{display:grid;grid-template-columns:repeat(8,28px);gap:10px}.sw button{width:28px;height:28px;border-radius:50%;border:3px solid transparent;background:var(--c)}.sw button.on{border-color:var(--ink)}
 @media(max-width:760px){
 .app{flex-direction:column}
 aside{position:fixed;bottom:0;left:0;right:0;top:auto;width:100%;height:auto;flex-direction:row;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));z-index:10;border-right:0;border-top:1px solid var(--line)}
@@ -110,15 +108,14 @@ body{background:radial-gradient(900px 420px at 85% -10%,color-mix(in srgb,var(--
 .cd span{font-weight:700;font-size:13px;min-width:24px;height:24px;display:grid;place-items:center;align-self:flex-start}
 .cd.td span{background:var(--acc);color:#fff;border-radius:99px}
 .cd.sel{border-color:var(--acc);box-shadow:0 0 0 2px var(--accsoft);background:var(--panel)}
-.ce{font-style:normal;font-size:11px;padding:2px 6px;border-radius:6px;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;border-left:3px solid var(--c)}
+.ce{font-style:normal;font-size:11px;padding:2px 6px;border-radius:6px;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500;border-left:3px solid var(--c)}
 .ce.dn{opacity:.45;text-decoration:line-through}
 .cd em{font-size:11px;color:var(--mute);font-style:normal}
 .cm{display:flex;gap:8px;align-items:center}
 .grade{font:800 46px/1 'Bricolage Grotesque';letter-spacing:-.03em;color:var(--c)}
 @media(max-width:760px){.cd{min-height:60px;padding:4px}.ce{font-size:0;height:6px;padding:0}.cd em{display:none}.cal{gap:3px}.nav button{padding:6px 3px;font-size:10px}.nf{grid-template-columns:1fr!important}}
 input[type=color]{width:64px;height:38px;padding:3px;cursor:pointer}
-input.cp{width:30px;height:30px;padding:0;border:0;border-radius:50%;margin:0 6px 0 auto;background:none}
-.cp::-webkit-color-swatch-wrapper{padding:0}.cp::-webkit-color-swatch{border:0;border-radius:50%}
+button.cp{width:26px;height:26px;padding:0;border:3px solid var(--panel);box-shadow:0 0 0 1px var(--line);border-radius:50%;margin:0 6px 0 auto;flex:none}
 @media(max-width:760px){.nav{overflow-x:auto}.nav button{flex:none}}
 </style>
 </head>
@@ -132,25 +129,24 @@ input.cp{width:30px;height:30px;padding:0;border:0;border-radius:50%;margin:0 6p
  <nav class="nav" id="nav"></nav>
  <div class="spacer"></div>
  <div class="mini"><p>Studied this week</p><b id="wk">0h</b></div>
- <button class="themebtn" data-a="theme">Toggle light / dark</button>
  <button class="themebtn" data-a="bk">Backup and restore</button>
 </aside>
 <main id="main"></main>
 </div>
 <dialog id="dlg"></dialog>
 <script>
-const K='studycenter.v1',COL=['#5b5bef','#3b82f6','#0ea5e9','#06b6d4','#14b8a6','#18a77f','#84cc16','#eab308','#e08a00','#f97316','#e5484d','#f43f5e','#d6409f','#a855f7','#8b5cf6','#6366f1','#78716c','#64748b','#0f766e','#7c2d12'],TYPES=['Assignment','Test','Quiz','Homework'];
+const K='studycenter.v1',COL=['#f87171','#fb923c','#facc15','#4ade80','#60a5fa','#a78bfa','#f472b6','#9ca3af','#b91c1c','#c2410c','#a16207','#15803d','#1d4ed8','#6d28d9','#be185d','#4b5563'],CN=['Light red','Light orange','Light yellow','Light green','Light blue','Light purple','Light pink','Light gray','Dark red','Dark orange','Dark yellow','Dark green','Dark blue','Dark purple','Dark pink','Dark gray'],TYPES=['Assignment','Test','Quiz','Homework'];
 const $=s=>document.querySelector(s),uid=()=>Math.random().toString(36).slice(2,9);
 const iso=d=>{const x=new Date(d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')};
 const add=n=>{const d=new Date();d.setDate(d.getDate()+n);return iso(d)};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let S=null;try{S=JSON.parse(localStorage.getItem(K))}catch(e){}
-if(!S){const a=uid(),b=uid(),c=uid();S={classes:[{id:a,name:'Biology 101',color:COL[2]},{id:b,name:'Calculus II',color:COL[0]},{id:c,name:'World History',color:COL[3]}],
+if(!S){const a=uid(),b=uid(),c=uid();S={classes:[{id:a,name:'Biology 101',color:COL[11]},{id:b,name:'Calculus II',color:COL[12]},{id:c,name:'World History',color:COL[9]}],
 tasks:[{id:uid(),title:'Chapter 4 problem set',cls:b,type:'Homework',due:add(1),done:false},{id:uid(),title:'Cell respiration quiz',cls:a,type:'Quiz',due:add(3),done:false},{id:uid(),title:'Midterm exam',cls:b,type:'Test',due:add(8),done:false},{id:uid(),title:'Industrial Revolution essay',cls:c,type:'Assignment',due:add(5),done:false}],
 sessions:[{id:uid(),cls:b,topic:'Integration by parts',mins:75,date:add(-1)},{id:uid(),cls:a,topic:'Lab report',mins:45,date:add(-2)},{id:uid(),cls:c,topic:'Reading notes',mins:30,date:iso(new Date())}],timer:null}}
 const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
 S.grades=S.grades||[];S.notes=S.notes||[];let calM=new Date(),calSel=iso(new Date());calM.setDate(1);
-let view='dash',fType='All',fCls='all',showDone=false,swatch=COL[0];
+let view='dash',fType='All',fCls='all',showDone=false,swatch=COL[12];
 const cl=id=>S.classes.find(c=>c.id===id)||{name:'No class',color:'#64748b'};
 const fm=m=>m<60?m+'m':Math.floor(m/60)+'h'+(m%60?' '+m%60+'m':'');
 const dd=s=>Math.round((new Date(s+'T00:00')-new Date(iso(new Date())+'T00:00'))/864e5);
@@ -185,7 +181,7 @@ function study(){
  <div class="card"><h3>Recent sessions</h3>${ss.length?ss.map(s=>{const c=cl(s.cls);return`<div class="row"><div class="t"><b>${esc(s.topic||'General study')}</b><div class="meta"><span class="pill"><i class="dot" style="--c:${c.color}"></i>${esc(c.name)}</span><span>${dd(s.date)===0?'Today':ds(s.date)}</span></div></div><b>${fm(s.mins)}</b><button class="x" aria-label="Delete" data-a="ds" data-id="${s.id}">&times;</button></div>`}).join(''):'<div class="empty">No sessions yet.</div>'}</div></div>`}
 function classes(){return`<div class="head"><div><h1>Classes</h1><p>Everything for each course at a glance.</p></div><div class="cm"><button class="btn ghost" data-a="bk">Backup</button><button class="btn" data-a="nc">+ Add class</button></div></div>
  <div class="cls">${S.classes.map(c=>{const o=S.tasks.filter(t=>t.cls===c.id&&!t.done),nx=o.sort((a,b)=>a.due.localeCompare(b.due))[0],m=S.sessions.filter(s=>s.cls===c.id).reduce((a,s)=>a+s.mins,0);
-  return`<div class="card cc" style="--c:${c.color}"><div style="display:flex;justify-content:space-between"><h3>${esc(c.name)}</h3><input type="color" class="cp" value="${c.color}" data-cc="${c.id}" aria-label="Change class color"><button class="x" aria-label="Delete class" data-a="dc" data-id="${c.id}">&times;</button></div><div class="sub"><span>${o.length} open task${o.length===1?'':'s'}</span><span>${fm(m)||'0m'} studied</span></div>${gradePill(c.id)}<div class="meta" style="margin-top:12px">${nx?`Next: ${esc(nx.title)} ${dueL(nx)}`:'Nothing due'}</div><div class="meta" style="margin-top:8px">${TYPES.map(y=>{const n=o.filter(t=>t.type===y).length;return n?`<span class="tag ${y}">${n} ${y}</span>`:''}).join('')}</div></div>`}).join('')||'<div class="card empty" style="grid-column:1/-1">Add your first class to begin.</div>'}</div>`}
+  return`<div class="card cc" style="--c:${c.color}"><div style="display:flex;justify-content:space-between"><h3>${esc(c.name)}</h3><button class="cp" data-a="rc" data-id="${c.id}" style="background:${c.color}" aria-label="Change class color" title="Change color"></button><button class="x" aria-label="Delete class" data-a="dc" data-id="${c.id}">&times;</button></div><div class="sub"><span>${o.length} open task${o.length===1?'':'s'}</span><span>${fm(m)||'0m'} studied</span></div>${gradePill(c.id)}<div class="meta" style="margin-top:12px">${nx?`Next: ${esc(nx.title)} ${dueL(nx)}`:'Nothing due'}</div><div class="meta" style="margin-top:8px">${TYPES.map(y=>{const n=o.filter(t=>t.type===y).length;return n?`<span class="tag ${y}">${n} ${y}</span>`:''}).join('')}</div></div>`}).join('')||'<div class="card empty" style="grid-column:1/-1">Add your first class to begin.</div>'}</div>`}
 const LG=p=>p>=93?'A':p>=90?'A-':p>=87?'B+':p>=83?'B':p>=80?'B-':p>=77?'C+':p>=73?'C':p>=70?'C-':p>=60?'D':'F';
 const gc=p=>p>=90?'#18a77f':p>=80?'#5b5bef':p>=70?'#e08a00':'#e5484d';
 function avg(id){const g=S.grades.filter(x=>x.cls===id);if(!g.length)return null;const p=g.reduce((a,x)=>a+x.e,0)/g.reduce((a,x)=>a+x.p,0)*100;return{p,l:LG(p)}}
@@ -213,18 +209,17 @@ function bmsg(t,bad){const m=$('#bm');if(m){m.textContent=t;m.style.color=bad?'v
 function doImport(txt){try{let j=JSON.parse(txt);j=j.data||j;if(!Array.isArray(j.classes)||!Array.isArray(j.tasks)||!Array.isArray(j.sessions))throw 0;S={classes:j.classes,tasks:j.tasks,sessions:j.sessions,grades:j.grades||[],notes:j.notes||[],timer:null};save();render();bmsg('Restored '+S.classes.length+' classes and '+S.tasks.length+' tasks.')}catch(e){bmsg('That does not look like a Study Center backup.',1)}}
 function dlgBackup(){const d=$('#dlg');d.innerHTML=`<h2>Backup and restore</h2><p style="color:var(--mute);margin:6px 0 0">Your data lives in this browser only. Save a backup to keep it safe or move it to another device.</p><div class="acts" style="justify-content:flex-start;flex-wrap:wrap"><button class="btn" data-a="bx">Download backup</button><button class="btn ghost" data-a="bc">Copy to clipboard</button></div><label>Restore from a file</label><input type="file" id="bf" accept=".json,application/json"><label>Or paste backup text</label><textarea id="bt" rows="3" placeholder="Paste backup here"></textarea><p id="bm" style="color:var(--mute);font-size:13px;margin:8px 0 0">Restoring replaces everything currently in this app.</p><div class="acts"><button class="btn ghost" data-a="cd">Close</button><button class="btn" data-a="bi">Restore</button></div>`;d.showModal()}
 document.addEventListener('change',e=>{if(e.target.id==='bf'&&e.target.files[0]){const r=new FileReader();r.onload=()=>doImport(r.result);r.readAsText(e.target.files[0])}});
-document.addEventListener('input',e=>{if(e.target.id==='d5')document.querySelectorAll('.sw button').forEach(x=>x.classList.toggle('on',x.dataset.id===e.target.value))});
-document.addEventListener('change',e=>{const id=e.target.dataset&&e.target.dataset.cc;if(id){const c=S.classes.find(c=>c.id===id);if(c){c.color=e.target.value;save();render()}}});
+const pal=(cur,act,cid)=>`<div class="sw">${COL.map((c,k)=>`<button style="--c:${c}" class="${c===cur?'on':''}" data-a="${act}" data-id="${c}"${cid?` data-cid="${cid}"`:''} aria-label="${CN[k]}" title="${CN[k]}"></button>`).join('')}</div>`;
+function dlgColor(id){const c=cl(id),d=$('#dlg');d.innerHTML=`<h2>Color for ${esc(c.name)}</h2><p style="color:var(--mute);margin:6px 0 12px">Light shades on the top row, dark shades below.</p>${pal(c.color,'rs',id)}<div class="acts"><button class="btn ghost" data-a="cd">Cancel</button></div>`;d.showModal()}
 function render(){
  $('#nav').innerHTML=NAV.map(([k,n])=>`<button class="${view===k?'on':''}" data-a="nav" data-id="${k}"><svg viewBox="0 0 24 24">${ico[k]}</svg>${n}</button>`).join('');
  $('#main').innerHTML={dash,tasks,cal,grades,study,notes,classes}[view]();$('#wk').textContent=fm(weekMins())||'0m';tick()}
 function tick(){const c=$('#clock');if(!c)return;const s=S.timer?Math.floor((Date.now()-S.timer.start)/1000):0;c.textContent=[s/3600,s/60%60,s%60].map(n=>String(Math.floor(n)).padStart(2,'0')).join(':')}
 setInterval(tick,1000);
 function dlgTask(dt){const d=$('#dlg');d.innerHTML=`<h2>New task</h2><label>Title</label><input id="d1" placeholder="e.g. Chapter 5 quiz"><div class="f2"><div><label>Class</label><select id="d2">${S.classes.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select></div><div><label>Type</label><select id="d3">${TYPES.map(t=>`<option>${t}</option>`).join('')}</select></div></div><label>Due date</label><input id="d4" type="date" value="${dt||add(1)}"><div class="acts"><button class="btn ghost" data-a="cd">Cancel</button><button class="btn" data-a="st">Save task</button></div>`;d.showModal();$('#d1').focus()}
-function dlgClass(){const d=$('#dlg');d.innerHTML=`<h2>New class</h2><label>Name</label><input id="d1" placeholder="e.g. Chemistry"><label>Color</label><div class="sw">${COL.map(c=>`<button style="--c:${c}" class="${c===swatch?'on':''}" data-a="sw" data-id="${c}" aria-label="Color ${c}"></button>`).join('')}</div><label>Or pick any color</label><input type="color" id="d5" value="${swatch}" aria-label="Custom color"><div class="acts"><button class="btn ghost" data-a="cd">Cancel</button><button class="btn" data-a="sc">Save class</button></div>`;d.showModal();$('#d1').focus()}
+function dlgClass(){const d=$('#dlg');d.innerHTML=`<h2>New class</h2><label>Name</label><input id="d1" placeholder="e.g. Chemistry"><label>Color</label>${pal(swatch,'sw')}<div class="acts"><button class="btn ghost" data-a="cd">Cancel</button><button class="btn" data-a="sc">Save class</button></div>`;d.showModal();$('#d1').focus()}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,id=b.dataset.id;
  if(a==='nav'){view=id}
- else if(a==='theme'){const r=document.documentElement,dk=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=dk?'light':'dark';return}
  else if(a==='tog'){const t=S.tasks.find(t=>t.id===id);t.done=!t.done}
  else if(a==='dt'){S.tasks=S.tasks.filter(t=>t.id!==id)}
  else if(a==='dc'){const c=cl(id),d=$('#dlg');d.innerHTML=`<h2>Delete ${esc(c.name)}?</h2><p style="color:var(--mute)">This also removes its tasks, grades and study sessions. This can't be undone.</p><div class="acts"><button class="btn ghost" data-a="cd">Cancel</button><button class="btn red" data-a="dc2" data-id="${id}">Delete class</button></div>`;d.showModal();return}
@@ -233,6 +228,8 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b
  else if(a==='ft'){fType=id}else if(a==='sd'){showDone=!showDone}
  else if(a==='nt'){if(!S.classes.length){view='classes';dlgClass()}else{dlgTask();return}}
  else if(a==='nc'){dlgClass();return}
+ else if(a==='rc'){dlgColor(id);return}
+ else if(a==='rs'){const c=S.classes.find(c=>c.id===b.dataset.cid);if(c)c.color=id;$('#dlg').close()}
  else if(a==='bk'){dlgBackup();return}
  else if(a==='bx'){try{const l=document.createElement('a');l.href=URL.createObjectURL(new Blob([bdata()],{type:'application/json'}));l.download='study-center-backup-'+iso(new Date())+'.json';document.body.appendChild(l);l.click();l.remove();bmsg('Backup downloaded.')}catch(x){bmsg('Download blocked here. Use Copy instead.',1)}return}
  else if(a==='bc'){navigator.clipboard.writeText(bdata()).then(()=>bmsg('Copied. Paste it into a text file to keep it.'),()=>{$('#bt').value=bdata();$('#bt').select();bmsg('Copy blocked. Copy the text below by hand.',1)});return}
@@ -248,9 +245,9 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b
  else if(a==='tn'){const n=S.notes.find(n=>n.id===id);n.done=!n.done}
  else if(a==='dn'){S.notes=S.notes.filter(n=>n.id!==id)}
  else if(a==='cd'){$('#dlg').close();return}
- else if(a==='sw'){swatch=id;$('#d5').value=id;document.querySelectorAll('.sw button').forEach(x=>x.classList.toggle('on',x.dataset.id===id));return}
+ else if(a==='sw'){swatch=id;document.querySelectorAll('.sw button').forEach(x=>x.classList.toggle('on',x.dataset.id===id));return}
  else if(a==='st'){const t=$('#d1').value.trim();if(!t){$('#d1').focus();return}S.tasks.push({id:uid(),title:t,cls:$('#d2').value,type:$('#d3').value,due:$('#d4').value||add(1),done:false});$('#dlg').close()}
- else if(a==='sc'){const n=$('#d1').value.trim();if(!n){$('#d1').focus();return}S.classes.push({id:uid(),name:n,color:$('#d5').value||swatch});$('#dlg').close()}
+ else if(a==='sc'){const n=$('#d1').value.trim();if(!n){$('#d1').focus();return}S.classes.push({id:uid(),name:n,color:swatch});$('#dlg').close()}
  else if(a==='start'){S.timer={start:Date.now(),cls:$('#tc').value,topic:$('#tt').value.trim()}}
  else if(a==='stop'){const m=Math.max(1,Math.round((Date.now()-S.timer.start)/60000));S.sessions.push({id:uid(),cls:S.timer.cls,topic:S.timer.topic,mins:m,date:iso(new Date())});S.timer=null}
  else if(a==='log'){const m=parseInt($('#mm').value);if(!m||m<1){$('#mm').focus();return}S.sessions.push({id:uid(),cls:$('#mc').value,topic:$('#mt').value.trim(),mins:m,date:iso(new Date())})}
